@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CodeForge - Coding Skills Platform</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#0f172a;
+color:white;
+}
+
+/* LOGIN */
+
+#loginPage{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.loginBox{
+background:#1e293b;
+padding:40px;
+border-radius:10px;
+text-align:center;
+}
+
+input{
+display:block;
+margin:10px auto;
+padding:10px;
+width:200px;
+}
+
+button{
+padding:10px 20px;
+background:#38bdf8;
+border:none;
+cursor:pointer;
+border-radius:5px;
+}
+
+/* DASHBOARD */
+
+#dashboard{
+display:none;
+}
+
+header{
+background:#020617;
+padding:15px;
+text-align:center;
+font-size:24px;
+}
+
+.container{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+padding:20px;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+border-radius:10px;
+text-align:center;
+cursor:pointer;
+transition:0.2s;
+}
+
+.card:hover{
+background:#334155;
+}
+
+.editor{
+padding:20px;
+}
+
+textarea{
+width:100%;
+height:200px;
+background:#020617;
+color:#38bdf8;
+border:none;
+padding:10px;
+}
+
+.progress{
+margin:20px;
+background:#1e293b;
+padding:20px;
+border-radius:10px;
+}
+
+.bar{
+background:#38bdf8;
+height:20px;
+width:10%;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN PAGE -->
+
+<div id="loginPage">
+
+<div class="loginBox">
+
+<h2>CodeForge Login</h2>
+
+<input id="username" placeholder="Username">
+<input id="password" type="password" placeholder="Password">
+
+<button onclick="login()">Login</button>
+
+<p id="loginMsg"></p>
+
+</div>
+</div>
+
+
+<!-- DASHBOARD -->
+
+<div id="dashboard">
+
+<header>
+🚀 CodeForge Coding Skills Platform
+</header>
+
+<div class="container">
+
+<div class="card" onclick="openSection('html')">HTML Lab</div>
+<div class="card" onclick="openSection('css')">CSS Lab</div>
+<div class="card" onclick="openSection('js')">JavaScript Lab</div>
+
+<div class="card" onclick="openSection('python')">Python Concepts</div>
+<div class="card" onclick="openSection('challenge')">Coding Challenges</div>
+<div class="card" onclick="openSection('editor')">Code Editor</div>
+
+</div>
+
+<div id="content" class="editor">
+
+<h2>Select a Coding Section</h2>
+
+</div>
+
+<div class="progress">
+
+<h3>Skill Progress</h3>
+
+<div style="background:#020617">
+<div class="bar" id="progressBar"></div>
+</div>
+
+<p id="progressText">10% Skill Level</p>
+
+</div>
+
+</div>
+
+
+<script>
+
+function login(){
+
+let user=document.getElementById("username").value;
+let pass=document.getElementById("password").value;
+
+if(user !== "" && pass !== ""){
+
+document.getElementById("loginPage").style.display="none";
+document.getElementById("dashboard").style.display="block";
+
+}
+else{
+
+document.getElementById("loginMsg").innerHTML="Enter username and password";
+
+}
+
+}
+
+/* SECTIONS */
+
+function openSection(type){
+
+let content=document.getElementById("content");
+
+if(type==="html"){
+
+content.innerHTML=`
+
+<h2>HTML Skill</h2>
+
+<p>Create a paragraph tag.</p>
+
+<textarea><p>Hello World</p></textarea>
+
+`;
+
+increaseSkill();
+
+}
+
+if(type==="css"){
+
+content.innerHTML=`
+
+<h2>CSS Skill</h2>
+
+<p>Style text color to red.</p>
+
+<textarea>p{
+color:red;
+}</textarea>
+
+`;
+
+increaseSkill();
+
+}
+
+if(type==="js"){
+
+content.innerHTML=`
+
+<h2>JavaScript Skill</h2>
+
+<p>Create alert message.</p>
+
+<textarea>alert("Hello")</textarea>
+
+`;
+
+increaseSkill();
+
+}
+
+if(type==="python"){
+
+content.innerHTML=`
+
+<h2>Python Concept</h2>
+
+<p>Print hello world.</p>
+
+<textarea>print("Hello World")</textarea>
+
+`;
+
+increaseSkill();
+
+}
+
+if(type==="challenge"){
+
+content.innerHTML=`
+
+<h2>Coding Challenge</h2>
+
+<p>Create a loop from 1 to 5.</p>
+
+<textarea>for(let i=1;i<=5;i++){
+console.log(i)
+}</textarea>
+
+`;
+
+increaseSkill();
+
+}
+
+if(type==="editor"){
+
+content.innerHTML=`
+
+<h2>Code Editor</h2>
+
+<textarea id="codeArea">// write your code here</textarea>
+
+<button onclick="runCode()">Run Code</button>
+
+<iframe id="output" style="width:100%;height:150px;background:white"></iframe>
+
+`;
+
+}
+
+}
+
+
+/* RUN CODE */
+
+function runCode(){
+
+let code=document.getElementById("codeArea").value;
+
+let frame=document.getElementById("output").contentWindow.document;
+
+frame.open();
+frame.write(code);
+frame.close();
+
+}
+
+
+/* SKILL PROGRESS */
+
+let skill=10;
+
+function increaseSkill(){
+
+skill+=5;
+
+if(skill>100){
+skill=100;
+}
+
+document.getElementById("progressBar").style.width=skill+"%";
+
+document.getElementById("progressText").innerHTML=skill+"% Skill Level";
+
+}
+
+</script>
+
+</body>
+</html>
